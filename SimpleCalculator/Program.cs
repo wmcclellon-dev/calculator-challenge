@@ -14,9 +14,9 @@ namespace CalculatorChallenge
                 return 0;
             }
 
-            string delimiter = ","; // Default delimiter is comma
+            List<string> delimiters = new List<string> { ",", "\n" }; // Default delimiters are comma and newline
 
-            // Check for custom delimiter format: //[{delimiter}]\n{numbers}
+            // Check for custom delimiter format: //[{delimiter1}][{delimiter2}]...\n{numbers}
             if (numbers.StartsWith("//"))
             {
                 int delimiterEndIndex = numbers.IndexOf('\n');
@@ -24,22 +24,19 @@ namespace CalculatorChallenge
                 {
                     string delimiterPart = numbers.Substring(2, delimiterEndIndex - 2);
 
-                    // Check if the delimiter is defined within square brackets
-                    if (delimiterPart.StartsWith("[") && delimiterPart.EndsWith("]"))
+                    // Use a regular expression to match all delimiters enclosed in square brackets
+                    var matches = Regex.Matches(delimiterPart, @"\[(.*?)\]");
+                    foreach (Match match in matches)
                     {
-                        delimiter = delimiterPart.Trim('[', ']'); // Extract custom delimiter of any length
-                    }
-                    else
-                    {
-                        delimiter = delimiterPart; // Single-character custom delimiter without brackets
+                        delimiters.Add(match.Groups[1].Value); // Add each custom delimiter
                     }
 
                     numbers = numbers.Substring(delimiterEndIndex + 1); // Remove delimiter declaration from input
                 }
             }
 
-            // Split by the custom delimiter, comma, or newline
-            var parts = numbers.Split(new[] { delimiter, "\n" }, StringSplitOptions.None);
+            // Split by all delimiters
+            var parts = numbers.Split(delimiters.ToArray(), StringSplitOptions.None);
             int sum = 0;
             var negativeNumbers = new List<int>();
 

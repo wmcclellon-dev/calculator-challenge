@@ -87,5 +87,11 @@ namespace SimpleCalculatorTests
         {
             Assert.AreEqual(66, calculator.Add("//[***]\n11***22***33"));
         }
+
+        [Test]
+        public void Add_MultipleCustomDelimiters_ReturnsSum()
+        {
+            Assert.AreEqual(110, calculator.Add("//[*][!!][r9r]\n11r9r22*33!!44"));
+        }
     }
 }
