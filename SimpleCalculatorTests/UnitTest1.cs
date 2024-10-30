@@ -5,7 +5,8 @@ using System;
 namespace SimpleCalculatorTests
 {
     [TestFixture]
-    public class SimpleCalculatorTests
+    [TestFixture]
+    public class StringCalculatorTests
     {
         private StringCalculator calculator;
 
@@ -40,7 +41,7 @@ namespace SimpleCalculatorTests
         }
 
         [Test]
-        public void Add_MoreThanTwoNumbers_ReturnsTheirSum()
+        public void Add_MultipleNumbers_ReturnsTheirSum()
         {
             Assert.AreEqual(78, calculator.Add("1,2,3,4,5,6,7,8,9,10,11,12"));
         }
@@ -49,6 +50,12 @@ namespace SimpleCalculatorTests
         public void Add_InvalidNumber_TreatsAsZero()
         {
             Assert.AreEqual(5, calculator.Add("5,tytyt"));
+        }
+
+        [Test]
+        public void Add_NumbersWithNewlineDelimiter_ReturnsTheirSum()
+        {
+            Assert.AreEqual(6, calculator.Add("1\n2,3"));
         }
     }
 }

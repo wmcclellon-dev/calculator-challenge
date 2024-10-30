@@ -14,7 +14,8 @@ namespace CalculatorChallenge
                 return 0;
             }
 
-            var parts = numbers.Split(',');
+            // Split by comma or newline
+            var parts = numbers.Split(new[] { ',', '\n' }, StringSplitOptions.None);
             int sum = 0;
 
             foreach (var part in parts)
