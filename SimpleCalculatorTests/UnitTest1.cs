@@ -5,7 +5,6 @@ using System;
 namespace SimpleCalculatorTests
 {
     [TestFixture]
-    [TestFixture]
     public class StringCalculatorTests
     {
         private StringCalculator calculator;
@@ -56,6 +55,13 @@ namespace SimpleCalculatorTests
         public void Add_NumbersWithNewlineDelimiter_ReturnsTheirSum()
         {
             Assert.AreEqual(6, calculator.Add("1\n2,3"));
+        }
+
+        [Test]
+        public void Add_NegativeNumbers_ThrowsException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => calculator.Add("1,-2,3,-4"));
+            Assert.AreEqual("Negatives not allowed: -2, -4", ex.Message);
         }
     }
 }
