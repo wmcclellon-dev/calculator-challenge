@@ -16,14 +16,25 @@ namespace CalculatorChallenge
 
             string delimiter = ","; // Default delimiter is comma
 
-            // Check for custom delimiter format: //{delimiter}\n{numbers}
+            // Check for custom delimiter format: //[{delimiter}]\n{numbers}
             if (numbers.StartsWith("//"))
             {
-                int delimiterIndex = numbers.IndexOf('\n');
-                if (delimiterIndex != -1)
+                int delimiterEndIndex = numbers.IndexOf('\n');
+                if (delimiterEndIndex != -1)
                 {
-                    delimiter = numbers[2].ToString(); // Single-character custom delimiter
-                    numbers = numbers.Substring(delimiterIndex + 1); // Remove delimiter declaration from input
+                    string delimiterPart = numbers.Substring(2, delimiterEndIndex - 2);
+
+                    // Check if the delimiter is defined within square brackets
+                    if (delimiterPart.StartsWith("[") && delimiterPart.EndsWith("]"))
+                    {
+                        delimiter = delimiterPart.Trim('[', ']'); // Extract custom delimiter of any length
+                    }
+                    else
+                    {
+                        delimiter = delimiterPart; // Single-character custom delimiter without brackets
+                    }
+
+                    numbers = numbers.Substring(delimiterEndIndex + 1); // Remove delimiter declaration from input
                 }
             }
 

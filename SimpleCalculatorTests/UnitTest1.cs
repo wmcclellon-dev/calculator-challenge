@@ -81,5 +81,11 @@ namespace SimpleCalculatorTests
         {
             Assert.AreEqual(102, calculator.Add("//,\n2,ff,100"));
         }
+
+        [Test]
+        public void Add_CustomMultiCharacterDelimiter_ReturnsSum()
+        {
+            Assert.AreEqual(66, calculator.Add("//[***]\n11***22***33"));
+        }
     }
 }
