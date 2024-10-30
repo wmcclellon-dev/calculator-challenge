@@ -14,8 +14,21 @@ namespace CalculatorChallenge
                 return 0;
             }
 
-            // Split by comma or newline
-            var parts = numbers.Split(new[] { ',', '\n' }, StringSplitOptions.None);
+            string delimiter = ","; // Default delimiter is comma
+
+            // Check for custom delimiter format: //{delimiter}\n{numbers}
+            if (numbers.StartsWith("//"))
+            {
+                int delimiterIndex = numbers.IndexOf('\n');
+                if (delimiterIndex != -1)
+                {
+                    delimiter = numbers[2].ToString(); // Single-character custom delimiter
+                    numbers = numbers.Substring(delimiterIndex + 1); // Remove delimiter declaration from input
+                }
+            }
+
+            // Split by the custom delimiter, comma, or newline
+            var parts = numbers.Split(new[] { delimiter, "\n" }, StringSplitOptions.None);
             int sum = 0;
             var negativeNumbers = new List<int>();
 

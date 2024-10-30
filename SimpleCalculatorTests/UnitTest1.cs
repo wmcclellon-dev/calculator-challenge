@@ -69,5 +69,17 @@ namespace SimpleCalculatorTests
         {
             Assert.AreEqual(8, calculator.Add("2,1001,6"));
         }
+
+        [Test]
+        public void Add_CustomSingleCharacterDelimiter_ReturnsSum()
+        {
+            Assert.AreEqual(7, calculator.Add("//#\n2#5"));
+        }
+
+        [Test]
+        public void Add_CustomSingleCharacterDelimiter_WithInvalidNumber_ReturnsSumIgnoringInvalid()
+        {
+            Assert.AreEqual(102, calculator.Add("//,\n2,ff,100"));
+        }
     }
 }
