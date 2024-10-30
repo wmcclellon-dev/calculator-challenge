@@ -63,5 +63,11 @@ namespace SimpleCalculatorTests
             var ex = Assert.Throws<ArgumentException>(() => calculator.Add("1,-2,3,-4"));
             Assert.AreEqual("Negatives not allowed: -2, -4", ex.Message);
         }
+
+        [Test]
+        public void Add_NumbersGreaterThanThousand_AreIgnored()
+        {
+            Assert.AreEqual(8, calculator.Add("2,1001,6"));
+        }
     }
 }

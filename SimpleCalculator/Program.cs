@@ -27,7 +27,10 @@ namespace CalculatorChallenge
                     {
                         negativeNumbers.Add(number); // Collect negative numbers
                     }
-                    sum += number;
+                    else if (number <= 1000)
+                    {
+                        sum += number; // Only add numbers less than or equal to 1000
+                    }
                 }
                 else
                 {
