@@ -40,9 +40,9 @@ namespace SimpleCalculatorTests
         }
 
         [Test]
-        public void Add_MoreThanTwoNumbers_ThrowsArgumentException()
+        public void Add_MoreThanTwoNumbers_ReturnsTheirSum()
         {
-            Assert.Throws<ArgumentException>(() => calculator.Add("1,2,3"));
+            Assert.AreEqual(78, calculator.Add("1,2,3,4,5,6,7,8,9,10,11,12"));
         }
 
         [Test]

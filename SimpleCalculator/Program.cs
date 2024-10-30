@@ -15,12 +15,8 @@ namespace CalculatorChallenge
             }
 
             var parts = numbers.Split(',');
-            if (parts.Length > 2)
-            {
-                throw new ArgumentException("Only up to 2 numbers are allowed.");
-            }
-
             int sum = 0;
+
             foreach (var part in parts)
             {
                 if (int.TryParse(part, out int number))
