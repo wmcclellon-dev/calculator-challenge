@@ -16,7 +16,7 @@ namespace CalculatorChallenge
 
             List<string> delimiters = new List<string> { ",", "\n" }; // Default delimiters are comma and newline
 
-            // Check for custom delimiter format: //[{delimiter1}][{delimiter2}]...\n{numbers}
+            // Check for custom delimiter format
             if (numbers.StartsWith("//"))
             {
                 int delimiterEndIndex = numbers.IndexOf('\n');
@@ -24,11 +24,19 @@ namespace CalculatorChallenge
                 {
                     string delimiterPart = numbers.Substring(2, delimiterEndIndex - 2);
 
-                    // Use a regular expression to match all delimiters enclosed in square brackets
-                    var matches = Regex.Matches(delimiterPart, @"\[(.*?)\]");
-                    foreach (Match match in matches)
+                    // If there are square brackets, handle multiple or multi-character delimiters
+                    if (delimiterPart.StartsWith("[") && delimiterPart.EndsWith("]"))
                     {
-                        delimiters.Add(match.Groups[1].Value); // Add each custom delimiter
+                        var matches = Regex.Matches(delimiterPart, @"\[(.*?)\]");
+                        foreach (Match match in matches)
+                        {
+                            delimiters.Add(match.Groups[1].Value); // Add each custom delimiter
+                        }
+                    }
+                    else
+                    {
+                        // Single-character custom delimiter without brackets
+                        delimiters.Add(delimiterPart);
                     }
 
                     numbers = numbers.Substring(delimiterEndIndex + 1); // Remove delimiter declaration from input
